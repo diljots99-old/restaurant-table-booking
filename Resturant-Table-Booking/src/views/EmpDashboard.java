@@ -1,4 +1,4 @@
-package Main;
+package views;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -6,9 +6,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
 
-public class Login extends JFrame {
+public class EmpDashboard extends JFrame {
 
 	private JPanel contentPane;
 
@@ -19,7 +18,7 @@ public class Login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login frame = new Login();
+					EmpDashboard frame = new EmpDashboard();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -31,16 +30,13 @@ public class Login extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Login() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 425, 412);
+	public EmpDashboard() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JLabel lblEmployeeLogin = new JLabel("Employee Login");
-		lblEmployeeLogin.setBounds(196, 28, 112, 45);
-		contentPane.add(lblEmployeeLogin);
 	}
+
 }
