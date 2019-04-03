@@ -6,6 +6,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import connector.My_function;
+import main.Login;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -21,7 +25,7 @@ import javax.swing.JButton;
 public class CustDashboard extends JFrame {
 
 	private JPanel contentPane;
-	public String custName="";
+	public String custName=My_function.empName;
 	public String availTable="";
 	/**
 	 * Launch the application.
@@ -43,6 +47,7 @@ public class CustDashboard extends JFrame {
 	 * Create the frame.
 	 */
 	public CustDashboard() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		
@@ -53,9 +58,20 @@ public class CustDashboard extends JFrame {
 		menuBar.add(mnFile);
 		
 		JMenuItem mntmLogout = new JMenuItem("Logout");
+		mntmLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			new Login().setVisible(true);
+			dispose();
+			}
+		});
 		mnFile.add(mntmLogout);
 		
 		JMenuItem mntmExit = new JMenuItem("Exit");
+		mntmExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		mnFile.add(mntmExit);
 		
 		JMenu mnAbout = new JMenu("About");

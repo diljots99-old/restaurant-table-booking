@@ -6,6 +6,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import connector.My_function;
+import main.Login;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -13,11 +17,14 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AdminDashboard extends JFrame {
 
 	private JPanel contentPane;
 	public String availTable="";
+	public String adminName=My_function.empName;
 
 	/**
 	 * Launch the application.
@@ -52,15 +59,31 @@ public class AdminDashboard extends JFrame {
 		mnNewMenu.add(mnNew);
 		
 		JMenuItem mntmEmpolyee = new JMenuItem("Empolyee");
+		mntmEmpolyee.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new New_emp().setVisible(true);
+			}
+		});
 		mnNew.add(mntmEmpolyee);
 		
 		JMenuItem mntmTable = new JMenuItem("Table");
 		mnNew.add(mntmTable);
 		
 		JMenuItem mntmLogout = new JMenuItem("Logout");
+		mntmLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Login().setVisible(true);
+				dispose();
+			}
+		});
 		mnNewMenu.add(mntmLogout);
 		
 		JMenuItem mntmExit = new JMenuItem("Exit");
+		mntmExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		mnNewMenu.add(mntmExit);
 		
 		JMenu mnAboutUs = new JMenu("About ");
@@ -84,13 +107,18 @@ public class AdminDashboard extends JFrame {
 		lblDashboard.setBounds(141, 11, 161, 29);
 		contentPane.add(lblDashboard);
 		
-		JLabel lblWelcome = new JLabel("Welcome,");
+		JLabel lblWelcome = new JLabel("Welcome,"+adminName);
 		lblWelcome.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWelcome.setBounds(37, 50, 360, 14);
 		contentPane.add(lblWelcome);
 		
 		JButton btnNewEmployee = new JButton("New Employee");
+		btnNewEmployee.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new New_emp().setVisible(true);
+			}
+		});
 		btnNewEmployee.setBounds(242, 89, 140, 25);
 		contentPane.add(btnNewEmployee);
 		
@@ -99,6 +127,11 @@ public class AdminDashboard extends JFrame {
 		contentPane.add(btnAddNewTable);
 		
 		JButton btnMangePayroll = new JButton("Mange Payroll");
+		btnMangePayroll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Modify_Payroll().setVisible(true);
+			}
+		});
 		btnMangePayroll.setBounds(242, 178, 140, 25);
 		contentPane.add(btnMangePayroll);
 		
@@ -112,5 +145,4 @@ public class AdminDashboard extends JFrame {
 		label.setBounds(82, 136, 46, 42);
 		contentPane.add(label);
 	}
-
 }
