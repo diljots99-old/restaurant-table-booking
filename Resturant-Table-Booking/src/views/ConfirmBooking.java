@@ -6,10 +6,14 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import connector.My_function;
+
 import java.awt.Window.Type;
 import java.util.Arrays;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
@@ -18,6 +22,7 @@ import java.awt.event.ActionEvent;
 
 public class ConfirmBooking extends JFrame {
 
+	protected static final String String = null;
 	private JPanel contentPane;
 	
 
@@ -61,6 +66,28 @@ public class ConfirmBooking extends JFrame {
 		"\nNumber of Peole can Acommudate = "+NewBooking.noPeople);
 		
 		JButton btnConfirmBooking = new JButton("Confirm Booking");
+		btnConfirmBooking.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println(NewBooking.SelectedTable.toString());
+				String BookingName=NewBooking.BookingName;
+				String BookingDate=NewBooking.bdate;
+				String BookingTime=NewBooking.btime;
+				String SelectedTable=NewBooking.SelectedTable.toString();
+				String price = Integer.toString(NewBooking.Price);
+				String noPeople=Integer.toString(NewBooking.noPeople);
+				boolean status=My_function.confirmBooking(BookingName,BookingDate,BookingTime,SelectedTable,price,noPeople);
+				if(status)
+				{
+					String CustID=My_function.getCustomerID(BookingName,BookingDate,BookingTime,SelectedTable,price,noPeople);
+					JOptionPane.showMessageDialog(null, "Your data is saved with customer ID= "+CustID);			
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Your data is not saved");			
+				}
+			
+			}
+		});
 		
 		btnConfirmBooking.setBounds(99, 222, 131, 25);
 		contentPane.add(btnConfirmBooking);

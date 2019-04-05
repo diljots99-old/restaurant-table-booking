@@ -118,4 +118,56 @@ public class My_function {
 			return status;
 		}
 
+		public static boolean confirmBooking(String bookingName, String bookingDate, String bookingTime,
+				String selectedTable, String price, String noPeople) {
+			boolean	status=false;
+			try {
+				int i=0;
+				Connection con=dbConnectivity.Connectivity.dbConnect();
+			    String qry="insert into Booking(BookingName,BookingDate,BookingTime,SelectedTable,Price,noPeople)" + 
+			    		" values(?,?,?,?,?,?)";
+				PreparedStatement pst=con.prepareStatement(qry);
+				pst.setString(1, bookingName);
+				pst.setString(2, bookingDate);
+				pst.setString(3, bookingTime);
+				pst.setString(4, selectedTable);
+				pst.setString(5, price);
+				pst.setString(6, noPeople);
+				
+				System.out.println(qry);
+				i=pst.executeUpdate();
+				System.out.println(qry);
+				if(i>0)
+					 status=true;
+				
+				
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+			return status;
+		
+			
+		}
+
+		public static String getCustomerID(String bookingName, String bookingDate, String bookingTime,
+				String selectedTable, String price, String noPeople) {
+			String CustID="";
+			try{
+				Connection con=dbConnectivity.Connectivity.dbConnect();
+				String qry="select CustomerID from Booking where BookingName='"+bookingName+"' and BookingDate='"+bookingDate+"' and BookingTime='"+bookingTime+"' and SelectedTable='"+selectedTable+"' and Price='"+price+"' and noPeople ='"+noPeople+"'";
+				System.out.println(qry);
+				Statement st=con.createStatement();
+				ResultSet rst=st.executeQuery(qry);
+				if(rst.next())
+				CustID=rst.getString(1);
+				System.out.println(CustID);
+				// TODO Auto-generated method stub
+				
+		}catch (Exception e) {
+			System.out.println(e);
+		}
+			return CustID;
+		}
+
 }

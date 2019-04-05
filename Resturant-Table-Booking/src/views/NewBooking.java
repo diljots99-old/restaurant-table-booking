@@ -20,8 +20,11 @@ import javax.swing.event.ChangeListener;
 
 import com.toedter.calendar.JDateChooser;
 
+import connector.My_function;
+
 import javax.swing.event.ChangeEvent;
 import java.awt.event.ItemListener;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,7 +47,10 @@ public class NewBooking extends JFrame {
 	//public static String SelectedTable[]=new String[15];
    	public static String bdate="";
    	public static String btime="";
-   	public static int noPeople=0;			
+   	public static int noPeople=0;		
+   	public static String BookingName="";
+   	public static String Time="";
+   	public static String Date="";
 	/**
 	 * Launch the application.
 	 */
@@ -100,6 +106,14 @@ public class NewBooking extends JFrame {
 		//bDate.setColumns(10);
 		
 		JComboBox bTime = new JComboBox();
+		bTime.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String Time=(String)bTime.getSelectedItem();
+				if ((Time != "")&&(Date !="")) {
+					String bookedTable=My_function.getBookedTables(Time,Date);
+				}
+			}
+		});
 		bTime.setModel(new DefaultComboBoxModel(new String[] {"Please Select Booking Time", "11:00 AM", "12:00 AM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM", "07:00 PM"}));
 		bTime.setBounds(869, 72, 189, 22);
 		contentPane.add(bTime);
@@ -406,6 +420,7 @@ public class NewBooking extends JFrame {
 				bdate=((JTextField)bDate.getDateEditor().getUiComponent()).getText();
 				btime=(String)bTime.getSelectedItem();
 				Date date;
+				BookingName=bName.getText();
 				date=bDate.getDate();
 				if(btime=="Please Select Booking Time")
 				{
