@@ -101,9 +101,14 @@ public class NewRegistration extends JFrame {
 		contentPane.add(lblNewLabel_6);
 			
 		JButton btncan = new JButton("Cancel");
+		btncan.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			dispose();
+			}
+		});
 		btncan.setBounds(213, 217, 89, 23);
 		contentPane.add(btncan);
-		
+	
 		user = new JTextField();
 		user.setBounds(222, 61, 157, 20);
 		contentPane.add(user);
