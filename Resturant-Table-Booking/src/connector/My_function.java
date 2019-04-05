@@ -1,8 +1,15 @@
 package connector;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JToggleButton;
 
 import dbConnectivity.Connectivity;
+import views.NewBooking;
 
 public class My_function {
 
@@ -168,6 +175,133 @@ public class My_function {
 			System.out.println(e);
 		}
 			return CustID;
+		}
+
+	
+		public static List<String> getBookedTables(String time, String date) {
+			List<String> BookedTable = new ArrayList<String>();
+			String bookedtable=null;
+			try {
+				
+				Connection con=dbConnectivity.Connectivity.dbConnect();
+				String qry="select SelectedTable from Booking where BookingDate='"+date+"' and BookingTime='"+time+"'";
+				System.out.println(qry);
+				Statement st=con.createStatement();
+				ResultSet rst=st.executeQuery(qry);
+				boolean Status=true;
+				while(rst.next())
+				{	bookedtable=null;
+					bookedtable=rst.getString("SelectedTable");
+					if(bookedtable.contentEquals("Table0")){
+						NewBooking.Table0.disable();
+						NewBooking.Table0.setEnabled(false);;
+						Status=true;
+					}
+					if(bookedtable.contentEquals("Table1")){
+						NewBooking.Table1.disable();
+						NewBooking.Table1.setEnabled(false);
+						Status=true;
+					}
+					if(bookedtable.contentEquals("Table2")){
+						NewBooking.Table2.disable();
+						NewBooking.Table2.setEnabled(false);
+						Status=true;
+					}
+					if(bookedtable.contentEquals("Table3")){
+						NewBooking.Table3.disable();
+						NewBooking.Table3.setEnabled(false);
+						Status=true;
+					}
+					
+					if(bookedtable.contentEquals("Table4")){
+						NewBooking.Table4.disable();
+						NewBooking.Table4.setEnabled(false);
+						Status=true;
+					}
+					
+					if(bookedtable.contentEquals("Table5")){
+						NewBooking.Table5.disable();
+						NewBooking.Table5.setEnabled(false);
+						Status=true;
+					}
+					
+					if(bookedtable.contentEquals("Table6")){
+						NewBooking.Table6.disable();
+						NewBooking.Table6.setEnabled(false);
+						Status=true;
+					}
+					
+					if(bookedtable.contentEquals("Table7")){
+						NewBooking.Table7.disable();
+						NewBooking.Table7.setEnabled(false);
+						Status=true;
+					}
+					
+					
+					if(bookedtable.contentEquals("Table8")){
+						NewBooking.Table8.disable();
+						NewBooking.Table8.setEnabled(false);
+						Status=true;
+					}
+					if(bookedtable.contentEquals("Table9")){
+						NewBooking.Table9.disable();
+						NewBooking.Table9.setEnabled(false);
+						Status=true;
+					}
+					if(bookedtable.contentEquals("Table10")){
+						NewBooking.Table10.disable();
+						NewBooking.Table10.setEnabled(false);
+						Status=true;
+					}
+					if(bookedtable.contentEquals("Table11")){
+						NewBooking.Table11.disable();
+						NewBooking.Table11.setEnabled(false);
+						Status=true;	
+					}
+					if(bookedtable.contentEquals("Table12")){
+						NewBooking.Table12.disable();
+						NewBooking.Table12.setEnabled(false);
+						Status=true;
+					}
+					if(bookedtable.contentEquals("Table13")){
+						NewBooking.Table13.disable();
+						NewBooking.Table13.setEnabled(false);
+						Status=true;
+					}
+					if(bookedtable.contentEquals("Table14")){
+						NewBooking.Table14.disable();
+						NewBooking.Table14.setEnabled(false);
+						Status=true;
+					}
+				}
+					
+								
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+			return BookedTable;
+		}
+
+		public static boolean cancelBooking(String bookingName, String bookingID) {
+			boolean	status=false;
+			try {
+				int i=0;
+				Connection con=dbConnectivity.Connectivity.dbConnect();
+			    String qry="Delete from Booking where BookingName = ? or CustomerID=?";
+				PreparedStatement pst=con.prepareStatement(qry);
+				pst.setString(1, bookingName);
+				pst.setString(2, bookingID);
+				i=pst.executeUpdate();
+				if(i>0)
+					 status=true;
+				
+				
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+			return status;
+			
 		}
 
 }

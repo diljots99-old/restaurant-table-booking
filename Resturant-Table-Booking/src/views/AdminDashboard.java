@@ -119,12 +119,8 @@ public class AdminDashboard extends JFrame {
 				new New_emp().setVisible(true);
 			}
 		});
-		btnNewEmployee.setBounds(242, 89, 140, 25);
+		btnNewEmployee.setBounds(242, 98, 140, 25);
 		contentPane.add(btnNewEmployee);
-		
-		JButton btnAddNewTable = new JButton("Add New Table");
-		btnAddNewTable.setBounds(242, 136, 140, 25);
-		contentPane.add(btnAddNewTable);
 		
 		JButton btnMangePayroll = new JButton("Mange Payroll");
 		btnMangePayroll.addActionListener(new ActionListener() {

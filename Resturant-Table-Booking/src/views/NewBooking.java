@@ -26,6 +26,7 @@ import javax.swing.event.ChangeEvent;
 import java.awt.event.ItemListener;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.awt.event.ItemEvent;
@@ -34,23 +35,44 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class NewBooking extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField bName;
-	private JDateChooser bDate;
+	public static JTextField bName;
+	public static JDateChooser bDate;
 	public static int count=0;
 	public static int i=0; 
 	public static int Price=0;
-	public static List<String> SelectedTable = new ArrayList<String>();
+	public static String SelectedTable = "";
+	public static String bookedTable = "";
 	//public static String SelectedTable[]=new String[15];
    	public static String bdate="";
    	public static String btime="";
    	public static int noPeople=0;		
    	public static String BookingName="";
-   	public static String Time="";
-   	public static String Date="";
+   	public static String Time=null;
+   	public static String Date=null;
+   	public static JToggleButton Table0;
+	public static JToggleButton Table1;
+	public static JToggleButton Table2;
+	public static JToggleButton Table3;
+	public static JToggleButton Table4;
+	public static JToggleButton Table5;
+	public static JToggleButton Table6;
+	public static JToggleButton Table7;
+	public static JToggleButton Table8;
+	public static JToggleButton Table9;
+	public static JToggleButton Table10;
+	public static JToggleButton Table11;
+	public static JToggleButton Table12;
+	public static JToggleButton Table13;
+	public static JToggleButton Table14;
+	public static JComboBox bTime;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JButton btnExit;
 	/**
 	 * Launch the application.
 	 */
@@ -101,16 +123,40 @@ public class NewBooking extends JFrame {
 		bName.setColumns(10);
 		
 		bDate = new JDateChooser();
+		bDate.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent arg0) {
+				Date=((JTextField)bDate.getDateEditor().getUiComponent()).getText();
+				System.out.println(Date);
+				if ((Time != null)&&(Date !=null)) {
+						enableAll();
+						My_function.getBookedTables(Time,Date);
+					
+				}
+			}
+		});
+		bDate.getCalendarButton().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Date=((JTextField)bDate.getDateEditor().getUiComponent()).getText();
+				System.out.println(Date);
+				if ((Time != null)&&(Date !=null)) {
+					enableAll();
+				My_function.getBookedTables(Time,Date);
+				}
+			}
+		});
 		bDate.setBounds(522, 72, 166, 22);
 		contentPane.add(bDate);
 		//bDate.setColumns(10);
 		
-		JComboBox bTime = new JComboBox();
+		bTime = new JComboBox();
 		bTime.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String Time=(String)bTime.getSelectedItem();
-				if ((Time != "")&&(Date !="")) {
-					String bookedTable=My_function.getBookedTables(Time,Date);
+				Time=(String)bTime.getSelectedItem();
+				System.out.println(Time);
+				if ((Time != null)&&(Date !=null)) {
+					enableAll();
+					My_function.getBookedTables(Time,Date);
+									
 				}
 			}
 		});
@@ -118,17 +164,18 @@ public class NewBooking extends JFrame {
 		bTime.setBounds(869, 72, 189, 22);
 		contentPane.add(bTime);
 		
-		JToggleButton Table0 = new JToggleButton("New toggle button");
+		Table0 = new JToggleButton("New toggle button");
+		buttonGroup.add(Table0);
 		Table0.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					count += 1;
-					SelectedTable.add(i,"Table0");
+					SelectedTable = "Table0";
 					i++;
 				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 					count -= 1;
 					i--;
-					SelectedTable.remove(i);
+					SelectedTable="";
 				}
 			}
 		});
@@ -137,17 +184,18 @@ public class NewBooking extends JFrame {
 		Table0.setBounds(280, 282, 86, 86);
 		contentPane.add(Table0);
 		
-		JToggleButton Table1 = new JToggleButton("1");
+		Table1 = new JToggleButton("1");
+		buttonGroup.add(Table1);
 		Table1.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					count += 1;
-					SelectedTable.add(i,"Table1");
+					SelectedTable = "Table1";
 					i++;
 				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 					count -= 1;
 					i--;
-					SelectedTable.remove(i);
+					SelectedTable="";
 				}
 			}
 		});
@@ -156,221 +204,233 @@ public class NewBooking extends JFrame {
 		Table1.setBounds(275, 170, 77, 65);
 		contentPane.add(Table1);
 		
-		JToggleButton Table2 = new JToggleButton("New toggle button");
+		Table2 = new JToggleButton("New toggle button");
+		buttonGroup.add(Table2);
 		Table2.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					count += 1;
-					SelectedTable.add(i,"Table2");
+					SelectedTable = "Table2";
 					i++;
 				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 					count -= 1;
 					i--;
-					SelectedTable.remove(i);
+					SelectedTable="";
 				}
 			}
 		});
 				Table2.setBounds(398, 170, 77, 65);
 		contentPane.add(Table2);
 		
-		JToggleButton Table3 = new JToggleButton("New toggle button");
+		Table3 = new JToggleButton("New toggle button");
+		buttonGroup.add(Table3);
 		Table3.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					count += 1;
-					SelectedTable.add(i,"Table3");
+					SelectedTable = "Table3";
 					i++;
 				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 					count -= 1;
 					i--;
-					SelectedTable.remove(i);
+					SelectedTable="";
 				}
 			}
 		});
 		Table3.setBounds(517, 170, 77, 65);
 		contentPane.add(Table3);
 		
-		JToggleButton Table4 = new JToggleButton("New toggle button");
+		Table4 = new JToggleButton("New toggle button");
+		buttonGroup.add(Table4);
 		Table4.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					count += 1;
-					SelectedTable.add(i,"Table4");
+					SelectedTable = "Table4";
 					i++;
 				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 					count -= 1;
 					i--;
-					SelectedTable.remove(i);
+					SelectedTable="";
 				}
 			}
 		});
 		Table4.setBounds(358, 636, 77, 65);
 		contentPane.add(Table4);
 		
-		JToggleButton Table5 = new JToggleButton("New toggle button");
+		Table5 = new JToggleButton("New toggle button");
+		buttonGroup.add(Table5);
 		Table5.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					count += 1;
-					SelectedTable.add(i,"Table5");
+					SelectedTable = "Table5";
 					i++;
 				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 					count -= 1;
 					i--;
-					SelectedTable.remove(i);
+					SelectedTable="";
 				}
 			}
 		});
 		Table5.setBounds(478, 636, 77, 65);
 		contentPane.add(Table5);
 		
-		JToggleButton Table6 = new JToggleButton("New toggle button");
+		Table6 = new JToggleButton("New toggle button");
+		buttonGroup.add(Table6);
 		Table6.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					count += 1;
-					SelectedTable.add(i,"Table6");
+					SelectedTable = "Table6";
 					i++;
 				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 					count -= 1;
 					i--;
-					SelectedTable.remove(i);
+					SelectedTable="";
 				}
 			}
 		});
 		Table6.setBounds(595, 636, 77, 65);
 		contentPane.add(Table6);
 		
-		JToggleButton Table7 = new JToggleButton("New toggle button");
+		Table7 = new JToggleButton("New toggle button");
+		buttonGroup.add(Table7);
 		Table7.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					count += 1;
-					SelectedTable.add(i,"Table7");
+					SelectedTable = "Table7";
 					i++;
 				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 					count -= 1;
 					i--;
-					SelectedTable.remove(i);
+					SelectedTable="";
 				}
 			}
 		});
 		Table7.setBounds(718, 636, 77, 65);
 		contentPane.add(Table7);
 		
-		JToggleButton Table14 = new JToggleButton("New toggle button");
+		Table14 = new JToggleButton("New toggle button");
+		buttonGroup.add(Table14);
 		Table14.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					count += 1;
-					SelectedTable.add(i,"Table14");
+					SelectedTable = "Table14";
 					i++;
 				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 					count -= 1;
 					i--;
-					SelectedTable.remove(i);
+					SelectedTable="";
 				}
 			}
 		});
 		Table14.setBounds(422, 282, 86, 86);
 		contentPane.add(Table14);
 		
-		JToggleButton Table13 = new JToggleButton("New toggle button");
+		Table13 = new JToggleButton("New toggle button");
+		buttonGroup.add(Table13);
 		Table13.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					count += 1;
-					SelectedTable.add(i,"Table13");
+					SelectedTable = "Table13";
 					i++;
 				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 					count -= 1;
 					i--;
-					SelectedTable.remove(i);
+					SelectedTable="";
 				}
 			}
 		});
 		Table13.setBounds(280, 396, 86, 86);
 		contentPane.add(Table13);
-		
-		JToggleButton Table12 = new JToggleButton("New toggle button");
+		Table12 = new JToggleButton("New toggle button");
+		buttonGroup.add(Table12);
 		Table12.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					count += 1;
-					SelectedTable.add(i,"Table12");
+					SelectedTable = "Table12";
 					i++;
 				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 					count -= 1;
 					i--;
-					SelectedTable.remove(i);
+					SelectedTable="";
 				}
 			}
 		});
 		Table12.setBounds(424, 396, 86, 86);
 		contentPane.add(Table12);
 		
-		JToggleButton Table11 = new JToggleButton("New toggle button");
+		Table11 = new JToggleButton("New toggle button");
+		buttonGroup.add(Table11);
 		Table11.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					count += 1;
-					SelectedTable.add(i,"Table11");
+					SelectedTable = "Table11";
 					i++;
 				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 					count -= 1;
 					i--;
-					SelectedTable.remove(i);
+					SelectedTable="";
 				}
 			}
 		});
 		Table11.setBounds(565, 396, 86, 86);
 		contentPane.add(Table11);
 		
-		JToggleButton Table10 = new JToggleButton("New toggle button");
+		Table10 = new JToggleButton("New toggle button");
+		buttonGroup.add(Table10);
 		Table10.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					count += 1;
-					SelectedTable.add(i,"Table10");
+					SelectedTable = "Table10";
 					i++;
 				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 					count -= 1;
 					i--;
-					SelectedTable.remove(i);
+					SelectedTable="";
 				}
 			}
 		});
 		Table10.setBounds(280, 512, 86, 86);
 		contentPane.add(Table10);
 		
-		JToggleButton Table9 = new JToggleButton("New toggle button");
+		Table9 = new JToggleButton("New toggle button");
+		buttonGroup.add(Table9);
 		Table9.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					count += 1;
-					SelectedTable.add(i,"Table9");
+					SelectedTable = "Table9";
 					i++;
 				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 					count -= 1;
 					i--;
-					SelectedTable.remove(i);
+					SelectedTable="";
 				}
 			}
 		});
 		Table9.setBounds(422, 512, 86, 86);
 		contentPane.add(Table9);
 		
-		JToggleButton Table8 = new JToggleButton("New toggle button");
+		Table8 = new JToggleButton("New toggle button");
+		buttonGroup.add(Table8);
 		Table8.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					count += 1;
-					SelectedTable.add(i,"Table8");
+					SelectedTable = "Table8";
 					i++;
 				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 					count -= 1;
 					i--;
-					SelectedTable.remove(i);
+					SelectedTable="";
 				}
 			}
 		});
@@ -412,9 +472,6 @@ public class NewBooking extends JFrame {
 		btnConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//JToggleButton table10 = (JToggleButton) getSelectedToggle();
-				System.out.println(count);
-				System.out.println(i);
-				System.out.println(SelectedTable);
 				noPeople=count*4;
 				Price=100*count;
 				bdate=((JTextField)bDate.getDateEditor().getUiComponent()).getText();
@@ -446,5 +503,46 @@ public class NewBooking extends JFrame {
 		btnConfirm.setBounds(424, 767, 97, 25);
 		contentPane.add(btnConfirm);
 		
+		btnExit = new JButton("Cancel");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			dispose();
+			}
+		});
+		btnExit.setBounds(575, 767, 97, 25);
+		contentPane.add(btnExit);
+		
 	}
+	public void enableAll() {
+		NewBooking.Table0.enable();
+		NewBooking.Table0.setEnabled(true);
+		NewBooking.Table1.enable();
+		NewBooking.Table1.setEnabled(true);
+		NewBooking.Table2.enable();
+		NewBooking.Table2.setEnabled(true);
+		NewBooking.Table3.enable();
+		NewBooking.Table3.setEnabled(true);
+		NewBooking.Table4.enable();
+		NewBooking.Table4.setEnabled(true);
+		NewBooking.Table5.enable();
+		NewBooking.Table5.setEnabled(true);
+		NewBooking.Table6.enable();
+		NewBooking.Table6.setEnabled(true);
+		NewBooking.Table7.enable();
+		NewBooking.Table7.setEnabled(true);
+		NewBooking.Table8.enable();
+		NewBooking.Table8.setEnabled(true);
+		NewBooking.Table9.enable();
+		NewBooking.Table9.setEnabled(true);
+		NewBooking.Table10.enable();
+		NewBooking.Table10.setEnabled(true);
+		NewBooking.Table11.enable();
+		NewBooking.Table11.setEnabled(true);
+		NewBooking.Table12.enable();
+		NewBooking.Table12.setEnabled(true);
+		NewBooking.Table13.enable();
+		NewBooking.Table14.setEnabled(true);
+	}
+
+	
 }

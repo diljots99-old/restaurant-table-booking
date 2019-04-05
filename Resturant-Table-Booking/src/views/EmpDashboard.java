@@ -60,6 +60,11 @@ public class EmpDashboard extends JFrame {
 		mnFile.add(mnNew);
 		
 		JMenuItem mntmBooking = new JMenuItem("Booking");
+		mntmBooking.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			new NewBooking().setVisible(true);
+			}
+		});
 		mnNew.add(mntmBooking);
 		
 		JMenuItem mntmLogOut = new JMenuItem("Log Out");
@@ -117,10 +122,20 @@ public class EmpDashboard extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JButton btnNewButton = new JButton("Cancel Booking");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new CancelBooking().setVisible(true);
+			}
+		});
 		btnNewButton.setBounds(525, 177, 197, 25);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Modify booking");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ModifyBooking().setVisible(true);
+			}
+		});
 		btnNewButton_1.setBounds(525, 231, 197, 25);
 		contentPane.add(btnNewButton_1);
 		
@@ -129,6 +144,11 @@ public class EmpDashboard extends JFrame {
 		contentPane.add(btnNewButton_2);
 		
 		JButton btnNewBooking = new JButton("New Booking");
+		btnNewBooking.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new NewBooking().setVisible(true);
+			}
+		});
 		btnNewBooking.setBounds(525, 127, 197, 25);
 		contentPane.add(btnNewBooking);
 	}

@@ -118,10 +118,20 @@ public class CustDashboard extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JButton btnNewBooking = new JButton("New Booking");
+		btnNewBooking.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			new NewBooking().setVisible(true);;
+			}
+		});
 		btnNewBooking.setBounds(216, 84, 120, 40);
 		contentPane.add(btnNewBooking);
 		
 		JButton btnModifyBooking = new JButton("Modify Booking");
+		btnModifyBooking.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ModifyBooking().setVisible(true);
+			}
+		});
 		btnModifyBooking.setBounds(216, 132, 120, 40);
 		contentPane.add(btnModifyBooking);
 	}
