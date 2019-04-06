@@ -10,6 +10,7 @@ import javax.swing.JToggleButton;
 
 import dbConnectivity.Connectivity;
 import views.NewBooking;
+import views.UpdateModify;
 
 public class My_function {
 
@@ -304,4 +305,124 @@ public class My_function {
 			
 		}
 
+		public static boolean Modify(String bookingName, String bookingID) {
+			boolean	status=false;
+			try {
+				int i=0;
+				Connection con=dbConnectivity.Connectivity.dbConnect();
+			    String qry="Update from Booking where BookingName = ? or CustomerID=?";
+				PreparedStatement pst=con.prepareStatement(qry);
+				pst.setString(1, bookingName);
+				pst.setString(2, bookingID);
+				i=pst.executeUpdate();
+				if(i>0)
+					 status=true;
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+			return status;
+		}
+
+		public static void getUpdateTables(String date, String time) {
+			
+			String bookedtable=null;
+			try {
+				
+				Connection con=dbConnectivity.Connectivity.dbConnect();
+				String qry="select SelectedTable from Booking where BookingDate='"+date+"' and BookingTime='"+time+"'";
+				System.out.println(qry);
+				Statement st=con.createStatement();
+				ResultSet rst=st.executeQuery(qry);
+				boolean Status=true;
+				while(rst.next())
+				{	bookedtable=null;
+					bookedtable=rst.getString("SelectedTable");
+					if(bookedtable.contentEquals("Table0")){
+						int i=0;
+						UpdateModify.removeTables(i);						
+					}
+					if(bookedtable.contentEquals("Table1")){
+						int i=1;
+						UpdateModify.removeTables(i);
+					}
+					if(bookedtable.contentEquals("Table2")){
+						int i=2;
+						UpdateModify.removeTables(i);
+					}
+					if(bookedtable.contentEquals("Table3")){
+						int i=3;
+						UpdateModify.removeTables(i);
+					}
+					
+					if(bookedtable.contentEquals("Table4")){
+						int i=4;
+						UpdateModify.removeTables(i);
+					}
+					
+					if(bookedtable.contentEquals("Table5")){
+						int i=5;
+						UpdateModify.removeTables(i);
+					}
+					
+					if(bookedtable.contentEquals("Table6")){
+						UpdateModify.removeTables(6);
+					}
+					
+					if(bookedtable.contentEquals("Table7")){
+						UpdateModify.removeTables(7);
+					}
+					if(bookedtable.contentEquals("Table8")){
+						UpdateModify.removeTables(8);
+					
+					}
+					if(bookedtable.contentEquals("Table9")){
+						UpdateModify.removeTables(9);
+					}
+					if(bookedtable.contentEquals("Table10")){
+						UpdateModify.removeTables(10);
+					}
+					if(bookedtable.contentEquals("Table11")){
+						UpdateModify.removeTables(11);
+					}
+					if(bookedtable.contentEquals("Table12")){
+						UpdateModify.removeTables(12);
+					}
+					if(bookedtable.contentEquals("Table13")){
+						UpdateModify.removeTables(13);
+					}
+					if(bookedtable.contentEquals("Table14")){
+						UpdateModify.removeTables(14);
+					}
+				}
+					
+								
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+			
+		}
+
+		public static boolean updateBooking(String bid, String bname, String btime, String bdate, String table) {
+			boolean	status=false;
+			try {
+				int i=0;
+				Connection con=dbConnectivity.Connectivity.dbConnect();
+			    String qry="Update Booking "
+			    		+ "set BookingName=?,BookingDate=?,BookingTime=?,SelectedTable=? where CustomerID=?";
+				PreparedStatement pst=con.prepareStatement(qry);
+				pst.setString(1, bname);
+				pst.setString(2, bdate);
+				pst.setString(3, btime);
+				pst.setString(4, table);
+				pst.setString(5, bid);
+				i=pst.executeUpdate();
+				if(i>0)
+					 status=true;
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+			return status;
+		}
 }

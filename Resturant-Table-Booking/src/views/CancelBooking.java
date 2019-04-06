@@ -26,6 +26,9 @@ public class CancelBooking extends JFrame {
 	private JPanel contentPane;
 	private JTextField bName;
 	private JTextField bID;
+	public static String BookingName=" ";
+	public static String BookingID=" ";
+	
 
 	/**
 	 * Launch the application.
@@ -85,26 +88,30 @@ public class CancelBooking extends JFrame {
 		JButton btnNewButton = new JButton("Check");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String BookingName=bName.getText();
-				String BookingID=bID.getText();
+				BookingName=bName.getText();
+				BookingID=bID.getText();
 				Connection con=null;
 				try {
 					String details="Booking Details Unavailable";
 					con=dbConnectivity.Connectivity.dbConnect();
-					String qry="select * from Booking where BookingName='"+BookingName+"'  or CustomerID='"+BookingID+"'";
+					String qry="select * from Booking where BookingName='"+BookingName+"'  or CustomerID="+BookingID;
 					Statement st=con.createStatement();
 					ResultSet rst=st.executeQuery(qry);
-					if(rst.next()==false) {
-						BookingDetails.setText(details);
-					}
-					while(rst.next())
+					System.out.println(qry);
+					boolean s=true; 
+					BookingDetails.setText(details);
+					while(s= rst.next())
 					{
+						if(s==false) {
+							BookingDetails.setText(details);
+						}
+						else {
 						details="CustomerID = "+rst.getString(1)+"\nBookingName ="+rst.getString(2)+"\nBookingDate = "+rst.getString(3)+
 								"\nBookingTime = "+rst.getString(4)+"\nSelected Tables = "+rst.getString(5)+"\nPrice = "+rst.getString(6)+"\nNumber People Can Accomudate = "+rst.getString(7);
 						BookingDetails.setText(details);
+						}
 					}
-					
-					
+									
 				}catch (Exception es) {
 					System.out.println(es);
 				}
@@ -123,8 +130,8 @@ public class CancelBooking extends JFrame {
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String BookingName=bName.getText();
-				String BookingID=bID.getText();
+				BookingName=bName.getText();
+				BookingID=bID.getText();
 				boolean Status=My_function.cancelBooking(BookingName,BookingID);
 				if(Status) {
 					JOptionPane.showMessageDialog(null, "Booking Has been Canceled Succesfully");
